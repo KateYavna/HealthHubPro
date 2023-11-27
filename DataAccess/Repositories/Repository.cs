@@ -8,7 +8,7 @@ namespace DataAccess.Repositories
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
         private readonly HealthHubDbContext _context;
-        private readonly DbSet<T> _dbSet;
+        public readonly DbSet<T> _dbSet;
 
         public Repository(HealthHubDbContext context)
         {

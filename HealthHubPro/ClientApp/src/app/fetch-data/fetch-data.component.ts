@@ -1,23 +1,35 @@
-import { Component, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { Login } from '../models/Login.model';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProfileFormService } from '../services/profile-form.service';
 
 @Component({
   selector: 'app-fetch-data',
   templateUrl: './fetch-data.component.html'
 })
 export class FetchDataComponent {
-  public forecasts: WeatherForecast[] = [];
+ 
+login: Login = new Login();
+invalidLogin: boolean = false;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
-      this.forecasts = result;
-    }, error => console.error(error));
-  }
+ constructor(
+    private router: Router,
+    private service: ProfileFormService,
+ ) {}
+onSubmit(loginSubmit: NgForm){
+  this.service.login(this.login)
+  .subscribe({
+    next: res => {
+      const token = (<any>res).token;
+      localStorage.setItem("jwt",token);
+      this.router.navigateByUrl('');
+    },
+    error: err => {
+      this.invalidLogin = true;
+      console.log(err);
+    }
+  });
+}
 }
 
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}

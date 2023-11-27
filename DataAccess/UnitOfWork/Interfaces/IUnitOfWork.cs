@@ -18,5 +18,8 @@ namespace DataAccess.UnitOfWork.Interfaces
         IRepository<PrescriptionHistory> PrescriptionHistoryRepository { get; }
         IRepository<Role> RoleRepository { get; }
         IRepository<Specialty> SpecialtyRepository { get; }
+
+        Task<Person> GetPersonByEmailAsync(string email);
+        Task SaveAsync();
     }
 }

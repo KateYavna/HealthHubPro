@@ -1,0 +1,93 @@
+<form #form = ngForm (submit)="onSubmit(form)">
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Profile Form</h2>
+      <label for="first-name">First Name: </label>
+      <input id="first-name" #firstName = "ngModel" type="text" name="firstName" 
+      [(ngModel)] = "formData.firstName" required>
+
+      <label for="last-name">Last Name: </label>
+      <input id="last-name" #lastName = "ngModel" type="text" name="lastName" 
+      [(ngModel)] = "formData.lastName" required>
+
+      <label for="date-of-birth">Date of birth: </label>
+      <input id="date-of-birth" #dateOfBirth = "ngModel" type="date" name="dateOfBirth" 
+      [(ngModel)] = "formData.dateOfBirth" required>
+
+      <label for="gender">Gender: </label>
+      <input id="gender" #gender = "ngModel" type="text" name="gender"
+      [(ngModel)] = "formData.gender">
+
+      <label for="phone-number">Phone number: </label>
+      <input id="phone-number" #phoneNumber = "ngModel" type="text" name="phoneNumber"
+      [(ngModel)] = "formData.phoneNumber" required>
+
+      <label for="email">Email: </label>
+      <input id="email" #email = "ngModel" type="email" name="email" 
+      [(ngModel)] = "formData.email" required>
+    </div>
+
+    <div class="col-md-4">
+      <div>
+        <h2>Address</h2>
+
+        <label for="street">Street: </label>
+        <input id="street" #street = "ngModel" type="text" name="street" 
+        [(ngModel)] = "formData.street" required>
+
+        <label for="city">City: </label>
+        <input id="city" #city = "ngModel" type="text" name="city" 
+        [(ngModel)] = "formData.city" required>
+
+        <label for="country">Country: </label>
+        <input id="country" #country = "ngModel" type="text" name="country"
+        [(ngModel)] = "formData.country" required>
+
+        <label for="zip-code">Zip Code: </label>
+        <input id="zip-code" #zipCode = "ngModel" type="text" name="zipCode" 
+        [(ngModel)] = "formData.zipCode" required>
+      </div>
+      <div>
+        <h2>Password</h2>
+
+        <label for="password">Password: </label>
+        <input id="password" #password = "ngModel" type="password" name="password"
+        [(ngModel)] = "formData.password" required>
+
+        <label for="confirm-password">Confirm password: </label>
+        <input id="confirm-password" #confirmPassword = "ngModel" type="password" name="confirmPassword"
+        [(ngModel)] = "formData.confirmPassword" required>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <h2>Emergency contact</h2>
+
+      <label for="emergency-contact-name">Name:</label>
+      <input id="emergency-contact-name" #emergencyContactName = "ngModel" type="text" name="emergencyContactName" 
+      [(ngModel)] = "formData.emergencyContactName" required>
+
+      <label for="relationship">Relationship: </label>
+      <input id="relationship" #emergencyContactRelationship = "ngModel" type="text" name="emergencyContactRelationship" 
+      [(ngModel)] = "formData.emergencyContactRelationship" required>
+
+      <label for="emergency-contact-phone">Phone:</label>
+      <input id="emergency-contact-phone" #emergencyContactPhoneNumber = "ngModel" type="text" name="emergencyContactPhoneNumber" 
+      [(ngModel)] = "formData.emergencyContactPhoneNumber" required>
+
+      <div>
+        <h2>Roles</h2>
+        <div *ngFor="let role of rolesList">
+          <label>
+            <input type="checkbox" name="roles" [checked]="formData.roles.includes(role)" (change)="onRoleChange($event, role)">
+            {{ role }}
+          </label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+    
+  <button class="btn btn-success" type="submit">Submit</button>
+  <br>
+</form>

@@ -1,0 +1,114 @@
+<form #personalInfo = ngForm (submit)="onSubmit(personalInfo)">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Personal information</h2>
+        <label for="first-name">First Name: </label>
+        <input id="first-name" #firstName = "ngModel" type="text" name="firstName" 
+        [(ngModel)] = "person.firstName">
+  
+        <label for="last-name">Last Name: </label>
+        <input id="last-name" #lastName = "ngModel" type="text" name="lastName" 
+        [(ngModel)] = "person.lastName">
+  
+        <label for="date-of-birth">Date of birth: </label>
+        <input id="date-of-birth" #dateOfBirth = "ngModel" type="datetime" name="dateOfBirth" 
+        [(ngModel)] = "person.dateOfBirth">
+  
+        <label for="gender">Gender: </label>
+        <input id="gender" #gender = "ngModel" type="text" name="gender"
+        [(ngModel)] = "person.gender">
+  
+        <label for="phone-number">Phone number: </label>
+        <input id="phone-number" #phoneNumber = "ngModel" type="text" name="phoneNumber"
+        [(ngModel)] = "person.phoneNumber">
+  
+        <label for="email">Email: </label>
+        <input id="email" #email = "ngModel" type="email" name="email" 
+        [(ngModel)] = "person.email">
+      </div>
+  
+      <div class="col-md-4">
+          <h2>Address</h2>
+  
+          <label for="street">Street: </label>
+          <input id="street" #street = "ngModel" type="text" name="street" 
+          [(ngModel)] = "address.street">
+  
+          <label for="city">City: </label>
+          <input id="city" #city = "ngModel" type="text" name="city" 
+          [(ngModel)] = "address.city">
+  
+          <label for="country">Country: </label>
+          <input id="country" #country = "ngModel" type="text" name="country"
+          [(ngModel)] = "address.country">
+  
+          <label for="zip-code">Zip Code: </label>
+          <input id="zip-code" #zipCode = "ngModel" type="text" name="zipCode" 
+          [(ngModel)] = "address.zipCode">     
+      </div>
+  
+      <div class="col-md-4">
+        <h2>Emergency contact</h2>
+  
+        <label for="name">Name:</label>
+        <input id="name" #name = "ngModel" type="text" name="name" 
+        [(ngModel)] = "emergencyContact.name">
+  
+        <label for="relationship">Relationship: </label>
+        <input id="relationship" #relationship = "ngModel" type="text" name="relationship" 
+        [(ngModel)] = "emergencyContact.relationship">
+  
+        <label for="phoneNumber">Phone:</label>
+        <input id="phoneNumber" #phoneNumber = "ngModel" type="text" name="phoneNumber" 
+        [(ngModel)] = "emergencyContact.phoneNumber">
+      </div>
+    </div>
+      
+    <button class="btn btn-success" type="submit">Submit</button>
+</form>
+<hr/>
+<div class="row">
+   <div class="col-md-3">
+        <h2>HealthcareProvider's Specialties</h2>
+        <form [formGroup]="specialtiesForm" (submit)="onSubmitSpecialties()">      
+          <div formArrayName="commonSpecialties">
+            <label *ngFor="let specialty of commonSpecialties; let i = index">
+              <input type="checkbox" [formControl]="getCommonSpecialtiesControl(i)">
+              {{ specialty.name }}
+            </label>
+          </div>
+     
+          <button class="btn btn-success" type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="col-md-3">
+      <h2>Add new Specialty</h2>
+      <form #addSpecialty = ngForm (submit)="onSpecialtySubmit(addSpecialty)">
+        <label for="name">Name: </label>
+        <input id="name" #name = "ngModel" type="text" name="name" 
+        [(ngModel)] = "specialty.name">
+        <button class="btn btn-success" type="submit">Submit</button>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <h2>Appointments</h2>
+      <table class='table table-striped' *ngIf="appointments.length">
+        <thead>
+          <tr>
+            <th>Start time</th>
+            <th>End time</th>
+            <th>Type</th>
+            <th>Patient</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let appointment of appointments">
+            <td>{{ appointment.startTime }}</td>
+            <td>{{ appointment.endTime }}</td>
+            <td>{{ appointment.appointmentType }}</td>
+            <td>{{ appointment.patient.person.firstName }} {{ appointment.patient.person.lastName }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>

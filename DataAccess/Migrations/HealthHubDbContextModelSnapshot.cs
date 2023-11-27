@@ -51,7 +51,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Addresses", (string)null);
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Allergy", b =>
@@ -79,7 +79,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("Allergies");
+                    b.ToTable("Allergies", (string)null);
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Appointment", b =>
@@ -118,7 +118,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("Appointments");
+                    b.ToTable("Appointments", (string)null);
                 });
 
             modelBuilder.Entity("DataAccess.Entities.EmergencyContact", b =>
@@ -147,7 +147,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmergencyContacts");
+                    b.ToTable("EmergencyContacts", (string)null);
                 });
 
             modelBuilder.Entity("DataAccess.Entities.HealthcareProvider", b =>
@@ -170,7 +170,9 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HealthcareProviders");
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("HealthcareProviders", (string)null);
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Password", b =>
@@ -199,7 +201,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Passwords");
+                    b.ToTable("Passwords", (string)null);
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Patient", b =>
@@ -222,7 +224,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Patients");
+                    b.ToTable("Patients", (string)null);
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Permission", b =>
@@ -248,7 +250,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Permissions");
+                    b.ToTable("Permissions", (string)null);
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Person", b =>
@@ -295,7 +297,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Persons");
+                    b.ToTable("Persons", (string)null);
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Prescription", b =>
@@ -334,7 +336,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("Prescriptions");
+                    b.ToTable("Prescriptions", (string)null);
                 });
 
             modelBuilder.Entity("DataAccess.Entities.PrescriptionHistory", b =>
@@ -365,7 +367,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("PrescriptionId");
 
-                    b.ToTable("PrescriptionHistories");
+                    b.ToTable("PrescriptionHistories", (string)null);
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Role", b =>
@@ -391,7 +393,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Specialty", b =>
@@ -419,7 +421,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("HealthcareProviderId");
 
-                    b.ToTable("Specialties");
+                    b.ToTable("Specialties", (string)null);
                 });
 
             modelBuilder.Entity("PermissionRole", b =>
@@ -434,7 +436,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("RolesId");
 
-                    b.ToTable("PermissionRole");
+                    b.ToTable("PermissionRole", (string)null);
                 });
 
             modelBuilder.Entity("PersonRole", b =>
@@ -449,7 +451,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("RolesId");
 
-                    b.ToTable("PersonRole");
+                    b.ToTable("PersonRole", (string)null);
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Allergy", b =>
@@ -472,6 +474,17 @@ namespace DataAccess.Migrations
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DataAccess.Entities.HealthcareProvider", b =>
+                {
+                    b.HasOne("DataAccess.Entities.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Prescription", b =>

@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace DataAccess.Entities
 {
     public class Person: BaseEntity
     {
@@ -11,6 +13,7 @@
         public Guid PasswordId { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        [JsonIgnore]
         public ICollection<Role> Roles { get; set; }
     }
 }

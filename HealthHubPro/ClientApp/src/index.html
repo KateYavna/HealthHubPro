@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>HealthHubPro</title>
-    <base href="/" />
+<head>
+  <meta charset="utf-8" />
+  <title>HealthHubPro</title>
+  <base href="/" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  </head>
-  <body>
-    <app-root>Loading...</app-root>
-  </body>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+</head>
+<body>
+
+  <app-root>Loading...</app-root>
+  <div id="map" style="height:400px; width:400px"></div>
+</body>
 </html>
+<script>
+  var map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: 50.450001, lng: 30.523333 },
+      zoom: 8
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzQWLR3No-WkF_N2WVLItbxZA4ZntH6t8&callback=initMap"
+        async defer></script>

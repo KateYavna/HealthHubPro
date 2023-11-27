@@ -6,5 +6,6 @@ namespace DataAccess.Repositories
     public class PersonRepository: Repository<Person>
     {
         public PersonRepository(HealthHubDbContext context): base(context) { }
+       
     }
 }

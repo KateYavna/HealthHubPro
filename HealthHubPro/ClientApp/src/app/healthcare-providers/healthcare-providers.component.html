@@ -1,0 +1,20 @@
+<p *ngIf="!healthcareProviders?.length"><em>Loading...</em></p>
+
+<table class='table table-striped' *ngIf="healthcareProviders?.length">
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Date of birth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let provider of healthcareProviders">
+      <td>{{ provider.firstName }}</td>
+      <td>{{ provider.lastName }}</td>
+      <td>{{ provider.dateOfBirth }}</td>
+      <td><a [routerLink]="['/healthcareProviderUpdate', provider.id]">View</a></td>
+    </tr>
+  </tbody>
+</table>
+

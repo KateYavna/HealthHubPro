@@ -1,0 +1,227 @@
+<form #personalInfo = ngForm (submit)="onSubmit(personalInfo)">
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Personal information</h2>
+      <label for="first-name">First Name: </label>
+      <input id="first-name" #firstName = "ngModel" type="text" name="firstName" 
+      [(ngModel)] = "person.firstName">
+
+      <label for="last-name">Last Name: </label>
+      <input id="last-name" #lastName = "ngModel" type="text" name="lastName" 
+      [(ngModel)] = "person.lastName">
+
+      <label for="date-of-birth">Date of birth: </label>
+      <input id="date-of-birth" #dateOfBirth = "ngModel" type="datetime" name="dateOfBirth" 
+      [(ngModel)] = "person.dateOfBirth">
+
+      <label for="gender">Gender: </label>
+      <input id="gender" #gender = "ngModel" type="text" name="gender"
+      [(ngModel)] = "person.gender">
+
+      <label for="phone-number">Phone number: </label>
+      <input id="phone-number" #phoneNumber = "ngModel" type="text" name="phoneNumber"
+      [(ngModel)] = "person.phoneNumber">
+
+      <label for="email">Email: </label>
+      <input id="email" #email = "ngModel" type="email" name="email" 
+      [(ngModel)] = "person.email">
+    </div>
+
+    <div class="col-md-4">
+        <h2>Address</h2>
+
+        <label for="street">Street: </label>
+        <input id="street" #street = "ngModel" type="text" name="street" 
+        [(ngModel)] = "address.street">
+
+        <label for="city">City: </label>
+        <input id="city" #city = "ngModel" type="text" name="city" 
+        [(ngModel)] = "address.city">
+
+        <label for="country">Country: </label>
+        <input id="country" #country = "ngModel" type="text" name="country"
+        [(ngModel)] = "address.country">
+
+        <label for="zip-code">Zip Code: </label>
+        <input id="zip-code" #zipCode = "ngModel" type="text" name="zipCode" 
+        [(ngModel)] = "address.zipCode">     
+    </div>
+
+    <div class="col-md-4">
+      <h2>Emergency contact</h2>
+
+      <label for="name">Name:</label>
+      <input id="name" #name = "ngModel" type="text" name="name" 
+      [(ngModel)] = "emergencyContact.name">
+
+      <label for="relationship">Relationship: </label>
+      <input id="relationship" #relationship = "ngModel" type="text" name="relationship" 
+      [(ngModel)] = "emergencyContact.relationship">
+
+      <label for="phoneNumber">Phone:</label>
+      <input id="phoneNumber" #phoneNumber = "ngModel" type="text" name="phoneNumber" 
+      [(ngModel)] = "emergencyContact.phoneNumber">
+    </div>
+  </div>
+    
+  <button class="btn btn-success" type="submit">Submit</button>
+</form>
+<hr/>
+<div class="row">  
+  <div class="col-md-3">
+    <h2>Patient's allergies</h2>
+    <form [formGroup]="patientAllergiesForm" (submit)="onSubmitAllergies()">      
+      <div formArrayName="commonAllergies">
+        <label *ngFor="let allergy of commonAllergies; let i = index">
+          <input type="checkbox" [formControl]="getCommonAllergiesControl(i)">
+          {{ allergy.name }}
+        </label>
+      </div>
+
+      <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+  </div>
+  <div class="col-md-3"> 
+    <h2>New Appointment</h2>  
+    <form #appointmentInfo = ngForm (submit)="onAppointmentSubmit(appointmentInfo)">      
+      <div>
+        <input type="hidden" name="patientId" [value] = "appointment.patientId">
+        <label for="startTime">Start time: </label>
+        <input id="startTime" #startTime = "ngModel" type="datetime-local" name="startTime" 
+        [(ngModel)] = "appointment.startTime">
+
+        <label for="endTime">End time: </label>
+        <input id="endTime" #endTime = "ngModel" type="datetime-local" name="endTime" 
+        [(ngModel)] = "appointment.endTime">
+
+        <label for="healthcareProvider">Healthcare provider: </label>
+        <select id="healthcareProvider" name="healthcareProviderId" [(ngModel)]="appointment.healthcareProviderId">
+            <option *ngFor="let provider of healthcareProviders" [value]="provider.id">
+                {{provider.person.firstName}}  {{provider.person.lastName}}
+            </option>
+        </select>
+
+        <label for="appointmentType">Appointment Type: </label>
+        <input id="appointmentType" #appointmentType = "ngModel" type="text" name="appointmentType"
+        [(ngModel)] = "appointment.appointmentType">
+      </div>
+      <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <h2>Appointments</h2>
+    <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="appointments.length">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Start time</th>
+          <th>End time</th>
+          <th>HealthcareProvider</th>
+          <th>Type</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appointment of appointments">
+          <td (click)="populateAppointmentForm(appointment)" style="color: blue;">update</td>
+          <td>{{ appointment.startTime }}</td>
+          <td>{{ appointment.endTime }}</td>
+          <td>{{ appointment.healthcareProvider.person.firstName }} {{ appointment.healthcareProvider.person.lastName }}</td>
+          <td>{{ appointment.appointmentType }}</td>
+          <td (click)="deleteAppointment(appointment.id)" style="color: red;">delete</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<hr/>
+<div class="row">
+ <div class="col-md-2">
+  <h2>Prescription</h2>
+  <form #prescriptionInfo = ngForm (submit)="onPrescriptionSubmit(prescriptionInfo)">
+    <div>
+        <input type="hidden" name="patientId" [value] = "prescription.patientId">
+        <label for="issueDate">Issue date: </label>
+        <input id="issueDate" #issueDate = "ngModel" type="date" name="issueDate" 
+        [(ngModel)] = "prescription.issueDate">
+
+        <label for="medication">Medication: </label>
+        <input id="medication" #medication = "ngModel" type="text" name="medication" 
+        [(ngModel)] = "prescription.medication">
+
+        <label for="healthcareProvider">Healthcare provider: </label>
+        <select id="healthcareProvider" name="healthcareProviderId" [(ngModel)]="prescription.healthcareProviderId">
+            <option *ngFor="let provider of healthcareProviders" [value]="provider.id">
+                {{provider.person.firstName}}  {{provider.person.lastName}}
+            </option>
+        </select>
+
+        <label for="dosage">Dosage: </label>
+        <input id="dosage" #dosage = "ngModel" type="text" name="dosage"
+        [(ngModel)] = "prescription.dosage">
+    </div>
+    <button class="btn btn-success" type="submit">Submit</button>
+  </form>
+ </div>
+ <div class="col-md-2">
+  <h2>History</h2>
+  <form #prescriptionHistoryInfo = ngForm (submit)="onPrescriptionHistorySubmit(prescriptionHistoryInfo)">
+    <div>
+        <input type="hidden" name="id" [value] = "prescriptionHistory.id">
+        <input type="hidden" name="prescriptionId" [value] = "prescriptionHistory.prescriptionId">
+        <label for="dispenseDate">Dispense date: </label>
+        <input id="dispenseDate" #dispenseDate = "ngModel" type="date" name="dispenseDate" 
+        [(ngModel)] = "prescriptionHistory.dispenseDate">
+
+        <label for="quantityDispensed">Quantity dispensed: </label>
+        <input id="quantityDispensed" #quantityDispensed = "ngModel" type="text" name="quantityDispensed" 
+        [(ngModel)] = "prescriptionHistory.quantityDispensed">
+    </div>
+    <button class="btn btn-success" type="submit" [disabled]="isPrescriptionIdEmpty()">Submit</button>
+  </form>
+ </div>
+ <div class="col-md-8">
+  <h2>All prescriptions and history</h2>
+  <table class='table table-striped' *ngIf="prescriptions.length">
+    <thead>
+      <tr>
+        <th></th>        
+        <th>Issue date</th>
+        <th>Healthcare Provider</th>
+        <th>Medication</th>
+        <th>Dosage</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let prescription of prescriptions">
+        <td (click)="populatePrescriptionForm(prescription)" style="color: blue;">update</td>
+        <td>{{ prescription.issueDate }}</td>
+        <td>{{ prescription.healthcareProvider.person.firstName }} {{ prescription.healthcareProvider.person.lastName }}</td>
+        <td>{{ prescription.medication }}</td>
+        <td>{{ prescription.dosage }}</td>
+        <td (click)="deletePrescription(prescription.id)" style="color: red;">delete</td>
+        
+           <table class='table table-striped' *ngIf="prescription.prescriptionHistory.length">
+            <thead>
+              <tr>
+                <th></th>        
+                <th>Dispense date</th>
+                <th>Quantity dispensed</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let history of prescription.prescriptionHistory">
+                <td (click)="populatePrescriptionHistoryForm(history)" style="color: blue;">upd</td>
+                <td>{{history.dispenseDate}}</td>
+                <td style="text-align: center;">{{history.quantityDispensed}}</td>
+                <td (click)="deletePrescriptionHistory(history.id)" style="color: red;">dlt</td>
+              </tr>
+            </tbody>
+           </table>
+      </tr>
+    </tbody>
+  </table>
+ </div>
+</div>

@@ -2,6 +2,7 @@
 using DataAccess.Entities;
 using DataAccess.Repositories.Interfaces;
 using DataAccess.UnitOfWork.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.UnitOfWork
 {
@@ -56,6 +57,13 @@ namespace DataAccess.UnitOfWork
             RoleRepository = roleRepository;
             SpecialtyRepository = specialtyRepository;
             PrescriptionHistoryRepository = prescriptionHistoryRepository;
+        }
+
+        public async Task<Person> GetPersonByEmailAsync(string email)
+        {
+            return await PersonRepository.GetAll()
+                .Include(p => p.Roles)
+                .FirstOrDefaultAsync(p => p.Email == email && !p.IsDeleted);
         }
 
         public virtual void Dispose(bool disposing)

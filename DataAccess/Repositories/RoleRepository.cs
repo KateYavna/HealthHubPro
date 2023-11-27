@@ -5,6 +5,6 @@ namespace DataAccess.Repositories
 {
     public class RoleRepository: Repository<Role>
     {
-        public RoleRepository(HealthHubDbContext context): base(context) { }
+        public RoleRepository(HealthHubDbContext context): base(context) { }       
     }
 }

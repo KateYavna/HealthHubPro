@@ -11,6 +11,7 @@ const PROXY_CONFIG = [
     proxyTimeout: 10000,
     target: target,
     secure: false,
+
     headers: {
       Connection: 'Keep-Alive'
     }

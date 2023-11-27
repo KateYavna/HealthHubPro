@@ -1,0 +1,19 @@
+<p *ngIf="!patients?.length"><em>Loading...</em></p>
+
+<table class='table table-striped' *ngIf="patients?.length">
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Date of birth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let patient of patients">
+      <td>{{ patient.firstName }}</td>
+      <td>{{ patient.lastName }}</td>
+      <td>{{ patient.dateOfBirth }}</td>
+      <td><a [routerLink]="['/patientUpdate', patient.id]">View</a></td>
+    </tr>
+  </tbody>
+</table>
