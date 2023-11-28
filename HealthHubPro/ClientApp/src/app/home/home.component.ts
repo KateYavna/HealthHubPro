@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { JwtHelperService} from '@auth0/angular-jwt';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +7,7 @@ import { JwtHelperService} from '@auth0/angular-jwt';
 export class HomeComponent implements OnInit {
   isUserAuthenticated: Boolean = true;
 
-  constructor(private jwtHelper: JwtHelperService) { }
+  constructor() { }
   ngOnInit(): void {
     const token = localStorage.getItem("jwt");
     if(token){
@@ -17,10 +16,7 @@ export class HomeComponent implements OnInit {
     else{
       this.isUserAuthenticated = false;
     }
-    console.log(this.isUserAuthenticated);
-    console.log(token);
   }
-
   logOut(){
     localStorage.removeItem("jwt");
     this.isUserAuthenticated = false;

@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuard} from './guards/auth-guard';
-
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';

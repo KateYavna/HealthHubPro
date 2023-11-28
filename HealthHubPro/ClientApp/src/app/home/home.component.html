@@ -14,14 +14,3 @@
   <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration automatically invokes <code>ng build</code> to produce minified, ahead-of-time compiled JavaScript files.</li>
 </ul>
 <p>The <code>ClientApp</code> subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any <code>ng</code> command (e.g., <code>ng test</code>), or use <code>npm</code> to install extra packages into it.</p>
-<script>
-  var map;
-  function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: { lat: 50.450001, lng: 30.523333 },
-      zoom: 8
-    });
-  }
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzQWLR3No-WkF_N2WVLItbxZA4ZntH6t8&callback=initMap"
-        async defer></script>
